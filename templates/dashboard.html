@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | AI Statistical Data Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="dashboard-navbar">
+
+    <div class="dashboard-logo">
+        📊
+        <span>AI Statistical Data Analyzer</span>
+    </div>
+
+    <nav class="upload-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('upload') }}">
+            Upload Dataset
+        </a>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard-page">
+
+    <!-- WELCOME -->
+
+    <section class="dashboard-welcome">
+
+        <div>
+
+            <span class="dashboard-badge">
+                ANALYTICS DASHBOARD
+            </span>
+
+            <h1>
+                Welcome,
+                <span>{{ user_name }}</span> 👋
+            </h1>
+
+            <p>
+                Manage your datasets and start powerful
+                statistical analysis from one place.
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('upload') }}"
+           class="dashboard-upload-btn">
+
+            + Upload Dataset
+
+        </a>
+
+    </section>
+
+
+    <!-- STAT CARDS -->
+
+    <section class="dashboard-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📂
+            </div>
+
+            <div>
+
+                <small>Total Datasets</small>
+
+                <strong>
+                    {{ datasets|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📊
+            </div>
+
+            <div>
+
+                <small>Analysis Ready</small>
+
+                <strong>
+                    {{ datasets|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <small>Platform Status</small>
+
+                <strong>
+                    Active
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DATASETS -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    YOUR DATA
+                </span>
+
+                <h2>
+                    Uploaded Datasets
+                </h2>
+
+            </div>
+
+            <a href="{{ url_for('upload') }}"
+               class="small-upload-btn">
+
+                Upload New
+
+            </a>
+
+        </div>
+
+
+        {% if datasets %}
+
+        <div class="dataset-grid">
+
+            {% for dataset in datasets %}
+
+            <div class="dataset-card">
+
+                <div class="dataset-top">
+
+                    <div class="dataset-file-icon">
+
+                        {% if dataset[2] == "csv" %}
+                            📄
+                        {% else %}
+                            📊
+                        {% endif %}
+
+                    </div>
+
+                    <span class="dataset-type">
+                        {{ dataset[2]|upper }}
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    {{ dataset[1] }}
+                </h3>
+
+
+                <p>
+                    File size:
+                    {{ "%.2f"|format(dataset[3] / 1024) }} KB
+                </p>
+
+
+                <div class="dataset-actions">
+
+                    <a href="{{ url_for('analyze', filename=dataset[1]) }}"
+                       class="analyze-btn">
+
+                        Analyze Dataset →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-datasets">
+
+            <div class="empty-icon">
+                📂
+            </div>
+
+            <h3>
+                No datasets uploaded yet
+            </h3>
+
+            <p>
+                Upload your first CSV or Excel dataset
+                to begin statistical analysis.
+            </p>
+
+            <a href="{{ url_for('upload') }}"
+               class="dashboard-upload-btn">
+
+                Upload Your First Dataset
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="quick-section">
+
+        <span>
+            QUICK ACTIONS
+        </span>
+
+        <div class="quick-grid">
+
+            <a href="{{ url_for('upload') }}"
+               class="quick-card">
+
+                <div>📂</div>
+
+                <h3>
+                    Upload Dataset
+                </h3>
+
+                <p>
+                    Add a new CSV or Excel file.
+                </p>
+
+            </a>
+
+
+            <div class="quick-card">
+
+                <div>📈</div>
+
+                <h3>
+                    Statistical Analysis
+                </h3>
+
+                <p>
+                    Calculate statistics from your data.
+                </p>
+
+            </div>
+
+
+            <div class="quick-card">
+
+                <div>💡</div>
+
+                <h3>
+                    Smart Insights
+                </h3>
+
+                <p>
+                    Get meaningful insights from data.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © 2026 AI Statistical Data Analyzer.
+    All Rights Reserved.
+
+</footer>
+
+</body>
+</html>

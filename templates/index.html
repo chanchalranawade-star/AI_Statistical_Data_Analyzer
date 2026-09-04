@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Statistical Data Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">📊</span>
+            <span>AI Statistical Data Analyzer</span>
+        </div>
+
+        <nav>
+            <a href="{{ url_for('home') }}" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-buttons">
+            <a href="{{ url_for('login') }}" class="login-btn">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}" class="register-btn">
+                Register
+            </a>
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO SECTION ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="badge">
+                🚀 Smart Data Analytics Platform
+            </span>
+
+            <h1>
+                AI-Powered
+                <span>Statistical</span>
+                Data Analyzer
+            </h1>
+
+            <p>
+                Upload your dataset and transform raw data into
+                meaningful statistics, interactive visualizations,
+                and intelligent insights.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{{ url_for('login') }}" class="primary-btn">
+                    Get Started →
+                </a>
+
+                <a href="#features" class="secondary-btn">
+                    Learn More
+                </a>
+
+            </div>
+
+            <div class="hero-stats">
+
+                <div>
+                    <strong>10+</strong>
+                    <small>Analysis Tools</small>
+                </div>
+
+                <div>
+                    <strong>CSV</strong>
+                    <small>Data Support</small>
+                </div>
+
+                <div>
+                    <strong>AI</strong>
+                    <small>Smart Insights</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ANALYTICS VISUAL -->
+
+        <div class="hero-visual">
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-header">
+                    <span>Analytics Dashboard</span>
+                    <span class="status">● Live</span>
+                </div>
+
+                <div class="chart-area">
+
+                    <div class="chart-title">
+                        Data Performance
+                    </div>
+
+                    <div class="bars">
+
+                        <div class="bar bar-1">
+                            <span>42%</span>
+                        </div>
+
+                        <div class="bar bar-2">
+                            <span>65%</span>
+                        </div>
+
+                        <div class="bar bar-3">
+                            <span>52%</span>
+                        </div>
+
+                        <div class="bar bar-4">
+                            <span>81%</span>
+                        </div>
+
+                        <div class="bar bar-5">
+                            <span>72%</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="dashboard-bottom">
+
+                    <div class="metric">
+                        <small>Mean</small>
+                        <strong>72.4</strong>
+                    </div>
+
+                    <div class="metric">
+                        <small>Median</small>
+                        <strong>70.8</strong>
+                    </div>
+
+                    <div class="metric">
+                        <small>Quality</small>
+                        <strong>94%</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="floating-card floating-one">
+                📈 <strong>+24.8%</strong>
+                <small>Data Growth</small>
+            </div>
+
+            <div class="floating-card floating-two">
+                🔍 <strong>Outliers</strong>
+                <small>Automatically detected</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section id="features" class="features-section">
+
+        <div class="section-heading">
+
+            <span>POWERFUL FEATURES</span>
+
+            <h2>
+                Everything You Need to
+                <span>Understand Your Data</span>
+            </h2>
+
+            <p>
+                Powerful statistical and analytical tools designed
+                to make complex datasets easier to understand.
+            </p>
+
+        </div>
+
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">📂</div>
+                <h3>Data Upload</h3>
+                <p>
+                    Upload CSV and Excel datasets for instant analysis.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Statistical Analysis</h3>
+                <p>
+                    Calculate mean, median, mode, variance,
+                    standard deviation and more.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>Visualization</h3>
+                <p>
+                    Generate meaningful charts and graphs
+                    from your data.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚠️</div>
+                <h3>Outlier Detection</h3>
+                <p>
+                    Automatically identify unusual values
+                    using statistical techniques.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Correlation Analysis</h3>
+                <p>
+                    Discover relationships between numerical
+                    variables.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3>Smart Insights</h3>
+                <p>
+                    Convert complex statistical results
+                    into easy-to-understand insights.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section id="about" class="about-section">
+
+        <div class="about-content">
+
+            <span>ABOUT THE PLATFORM</span>
+
+            <h2>
+                Turn Raw Data Into
+                <span>Useful Decisions</span>
+            </h2>
+
+            <p>
+                AI Statistical Data Analyzer is a web-based analytics
+                platform designed to help users analyze datasets
+                without performing complex calculations manually.
+            </p>
+
+            <p>
+                From data cleaning and statistical analysis to
+                visualization, correlation and outlier detection,
+                the platform brings the complete analysis workflow
+                into one place.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 AI Statistical Data Analyzer.
+            
+        </p>
+
+    </footer>
+
+
+</body>
+</html>

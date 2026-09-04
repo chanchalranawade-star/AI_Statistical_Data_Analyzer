@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis | AI Statistical Data Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="dashboard-navbar">
+
+    <div class="dashboard-logo">
+        📊
+        <span>AI Statistical Data Analyzer</span>
+    </div>
+
+    <nav class="upload-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('upload') }}">
+            Upload Dataset
+        </a>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="logout-btn">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="dashboard-page">
+
+    <!-- PAGE HEADER -->
+
+    <section class="dashboard-welcome">
+
+        <div>
+
+            <span class="dashboard-badge">
+                STATISTICAL ANALYSIS
+            </span>
+
+            <h1>
+                Analysis Report 📊
+            </h1>
+
+            <p>
+                Dataset:
+                <strong>{{ filename }}</strong>
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="dashboard-upload-btn">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </section>
+
+
+    <!-- DATASET INFORMATION -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    DATASET OVERVIEW
+                </span>
+
+                <h2>
+                    Dataset Information
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📑
+                </div>
+
+                <div>
+
+                    <small>Total Rows</small>
+
+                    <strong>
+                        {{ dataset_info.rows }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📊
+                </div>
+
+                <div>
+
+                    <small>Total Columns</small>
+
+                    <strong>
+                        {{ dataset_info.columns }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚠️
+                </div>
+
+                <div>
+
+                    <small>Missing Values</small>
+
+                    <strong>
+                        {{ dataset_info.missing_values }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔄
+                </div>
+
+                <div>
+
+                    <small>Duplicate Rows</small>
+
+                    <strong>
+                        {{ dataset_info.duplicate_rows }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- COLUMN NAMES -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    DATA STRUCTURE
+                </span>
+
+                <h2>
+                    Columns
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+            {% for column in dataset_info.column_names %}
+
+            <div class="quick-card">
+
+                <div>📌</div>
+
+                <h3>
+                    {{ column }}
+                </h3>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- CLEANING SUMMARY -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    DATA CLEANING
+                </span>
+
+                <h2>
+                    Cleaning Summary
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📂
+                </div>
+
+                <div>
+
+                    <small>Rows Before</small>
+
+                    <strong>
+                        {{ cleaning_summary.original_rows }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✨
+                </div>
+
+                <div>
+
+                    <small>Rows After</small>
+
+                    <strong>
+                        {{ cleaning_summary.cleaned_rows }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🗑️
+                </div>
+
+                <div>
+
+                    <small>Duplicates Removed</small>
+
+                    <strong>
+                        {{ cleaning_summary.duplicates_removed }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div>
+
+                    <small>Missing Values After</small>
+
+                    <strong>
+                        {{ cleaning_summary.missing_values_after }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATISTICAL ANALYSIS -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    STATISTICS
+                </span>
+
+                <h2>
+                    Statistical Summary
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        {% if statistics %}
+
+        {% for column, values in statistics.items() %}
+
+        <div class="dataset-card"
+             style="margin-bottom: 20px;">
+
+            <h3>
+                📊 {{ column }}
+            </h3>
+
+            <div class="dashboard-stats">
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Mean</small>
+
+                        <strong>
+                            {{ values.mean }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Median</small>
+
+                        <strong>
+                            {{ values.median }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Mode</small>
+
+                        <strong>
+                            {{ values.mode }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Minimum</small>
+
+                        <strong>
+                            {{ values.minimum }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Maximum</small>
+
+                        <strong>
+                            {{ values.maximum }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Variance</small>
+
+                        <strong>
+                            {{ values.variance }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <small>Standard Deviation</small>
+
+                        <strong>
+                            {{ values.standard_deviation }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="empty-datasets">
+
+            <div class="empty-icon">
+                📊
+            </div>
+
+            <h3>
+                No numeric columns found
+            </h3>
+
+            <p>
+                Statistical calculations require numeric data.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- CORRELATION -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    RELATIONSHIPS
+                </span>
+
+                <h2>
+                    Strong Correlations
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        {% if correlations %}
+
+        <div class="quick-grid">
+
+            {% for item in correlations %}
+
+            <div class="quick-card">
+
+                <div>🔗</div>
+
+                <h3>
+                    {{ item.variable_1 }}
+                    ↔
+                    {{ item.variable_2 }}
+                </h3>
+
+                <p>
+                    Correlation:
+                    <strong>
+                        {{ item.correlation }}
+                    </strong>
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-datasets">
+
+            <div class="empty-icon">
+                🔗
+            </div>
+
+            <h3>
+                No strong correlations found
+            </h3>
+
+            <p>
+                No relationship above the selected threshold was detected.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- OUTLIERS -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    ANOMALY DETECTION
+                </span>
+
+                <h2>
+                    Outlier Summary
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-grid">
+
+            {% for column, count in outliers.items() %}
+
+            <div class="quick-card">
+
+                <div>🔎</div>
+
+                <h3>
+                    {{ column }}
+                </h3>
+
+                <p>
+                    Potential Outliers:
+                    <strong>
+                        {{ count }}
+                    </strong>
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- SMART INSIGHTS -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    SMART ANALYSIS
+                </span>
+
+                <h2>
+                    💡 Smart Insights
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        {% if insights %}
+
+        <div class="quick-grid">
+
+            {% for insight in insights %}
+
+            <div class="quick-card">
+
+                <div>💡</div>
+
+                <p>
+                    {{ insight }}
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-datasets">
+
+            <h3>
+                No insights available
+            </h3>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- REPORT -->
+
+    <section class="datasets-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span>
+                    FINAL REPORT
+                </span>
+
+                <h2>
+                    Analysis Report
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="dataset-card">
+
+            <pre style="
+                white-space: pre-wrap;
+                line-height: 1.7;
+                font-family: inherit;
+            ">{{ format_report(report) }}</pre>
+
+        </div>
+
+    </section>
+
+
+    <!-- BACK BUTTON -->
+
+    <section style="
+        text-align: center;
+        margin: 40px 0;
+    ">
+
+        <a href="{{ url_for('dashboard') }}"
+           class="dashboard-upload-btn">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © 2026 AI Statistical Data Analyzer.
+    All Rights Reserved.
+
+</footer>
+    <!-- Charts Section -->
+<div class="charts-section">
+
+    <h2>📊 Data Visualizations</h2>
+
+    {% if chart_files %}
+        {% for chart in chart_files %}
+
+            <div class="chart-card">
+
+                <h3>{{ chart.title }}</h3>
+
+                <img
+                    src="{{ chart.path }}"
+                    alt="{{ chart.title }}"
+                    class="analysis-chart"
+                >
+
+            </div>
+
+        {% endfor %}
+    {% else %}
+
+        <p>No charts available for this dataset.</p>
+
+    {% endif %}
+
+</div>
+
+<!-- Final Analysis Report -->
+<div class="report-section">
+
+    <h2>📄 Final Analysis Report</h2>
+
+    <div class="report-content">
+        <pre>{{ format_report(report) }}</pre>
+    </div>
+
+</div>
+</body>
+</html>

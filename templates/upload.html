@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Dataset | AI Statistical Data Analyzer</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<header class="dashboard-navbar">
+
+    <div class="dashboard-logo">
+        📊
+        <span>AI Statistical Data Analyzer</span>
+    </div>
+
+    <nav class="upload-nav">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="upload-page-new">
+
+    <!-- HERO -->
+
+    <section class="upload-hero">
+
+        <div class="upload-hero-text">
+
+            <span class="upload-badge">
+                DATA ANALYSIS
+            </span>
+
+            <h1>
+                Turn Your Data Into
+                <span>Insights</span>
+            </h1>
+
+            <p>
+                Upload your dataset and let our statistical
+                analysis engine discover patterns, trends,
+                relationships and valuable insights.
+            </p>
+
+        </div>
+
+        <div class="upload-hero-visual">
+
+            <div class="floating-data-card card-one">
+                📊
+                <strong>Statistical Analysis</strong>
+                <small>Mean • Median • Mode</small>
+            </div>
+
+            <div class="floating-data-card card-two">
+                📈
+                <strong>Visualization</strong>
+                <small>Charts & Graphs</small>
+            </div>
+
+            <div class="floating-data-card card-three">
+                💡
+                <strong>Smart Insights</strong>
+                <small>AI-powered results</small>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- UPLOAD AREA -->
+
+    <section class="upload-main-card">
+
+        <div class="upload-icon-large">
+            📂
+        </div>
+
+        <h2>
+            Upload Your Dataset
+        </h2>
+
+        <p class="upload-description">
+            Drag and drop your file here or browse
+            from your computer.
+        </p>
+
+
+        <form method="POST"
+              enctype="multipart/form-data"
+              id="uploadForm">
+
+
+            <label for="dataset"
+                   class="drop-zone">
+
+                <div class="drop-icon">
+                    ☁️
+                </div>
+
+                <strong>
+                    Choose a dataset
+                </strong>
+
+                <span>
+                    CSV, XLSX or XLS files
+                </span>
+
+                <div class="browse-button">
+                    Browse Files
+                </div>
+
+            </label>
+
+
+            <input
+                type="file"
+                id="dataset"
+                name="dataset"
+                accept=".csv,.xlsx,.xls"
+                required>
+
+
+            <div id="selected-file">
+
+                <span id="file-name">
+                </span>
+
+            </div>
+
+
+            <button type="submit"
+                    class="upload-submit-new">
+
+                🚀 Start Analysis
+
+            </button>
+
+        </form>
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="upload-features">
+
+        <div class="upload-feature">
+
+            <div class="upload-feature-icon">
+                🔒
+            </div>
+
+            <div>
+
+                <h3>
+                    Secure Upload
+                </h3>
+
+                <p>
+                    Your datasets are securely stored
+                    and associated with your account.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="upload-feature">
+
+            <div class="upload-feature-icon">
+                📊
+            </div>
+
+            <div>
+
+                <h3>
+                    Statistical Analysis
+                </h3>
+
+                <p>
+                    Calculate descriptive statistics
+                    automatically.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="upload-feature">
+
+            <div class="upload-feature-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <h3>
+                    Instant Processing
+                </h3>
+
+                <p>
+                    Quickly prepare your dataset
+                    for analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUPPORTED FILES -->
+
+    <section class="supported-section">
+
+        <span>
+            SUPPORTED DATA FORMATS
+        </span>
+
+        <div class="file-types">
+
+            <div>
+                <strong>CSV</strong>
+                <small>Comma Separated Values</small>
+            </div>
+
+            <div>
+                <strong>XLSX</strong>
+                <small>Microsoft Excel</small>
+            </div>
+
+            <div>
+                <strong>XLS</strong>
+                <small>Excel Workbook</small>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    © 2026 AI Statistical Data Analyzer.
+    All Rights Reserved.
+
+</footer>
+
+
+<script>
+
+const fileInput = document.getElementById("dataset");
+const fileName = document.getElementById("file-name");
+const selectedFile = document.getElementById("selected-file");
+
+fileInput.addEventListener("change", function () {
+
+    if (this.files.length > 0) {
+
+        fileName.textContent =
+            "Selected: " + this.files[0].name;
+
+        selectedFile.classList.add("show");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
