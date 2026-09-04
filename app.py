@@ -50,7 +50,33 @@ def get_db_connection():
     )
 
     return connection
+def init_db():
+    connection = get_db_connection()
+    cursor = connection.cursor()
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS datasets (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            filename VARCHAR(255) NOT NULL,
+            file_type VARCHAR(20) NOT NULL,
+            file_size BIGINT NOT NULL
+        )
+    """)
+
+    connection.commit()
+
+    cursor.close()
+    connection.close()
 
 @app.route("/")
 def home():
@@ -508,6 +534,10 @@ def check_db():
 
     except Exception as error:
         return f"<h2>Database Error</h2><p>{error}</p>"
+
+
+init_db()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
