@@ -1,2 +1,7 @@
+Flask
 psycopg2-binary
+python-dotenv
+pandas
+openpyxl
+matplotlib
 gunicorn
